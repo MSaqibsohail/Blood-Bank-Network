@@ -1,0 +1,33 @@
+## Core Build Directories
+[Db]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+
+## Visual Studio / VS Code configuration
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Publishing output
+publish/
+*.pubxml
+*.pubxml.user
+
+## Secrets & Local configurations
+appsettings.local.json
+.env
+.env.local
+
+## Testing & Coverage outputs
+TestResults/
+*.clog
+*.cobertura.xml
+
+## System / Log files
+*.log
+.DS_Store
+Thumbs.db

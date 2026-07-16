@@ -1,0 +1,251 @@
+@model BloodBankNetwork.Models.DashboardViewModel
+<script>
+    // Jaise hi user sahi login credentials daal kar Dashboard par land karega, 
+    // hum is tab ke liye token 'True' set kar denge.
+    sessionStorage.setItem("UserTabActive", "True");
+</script>
+<div class="container-fluid py-2">
+
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-light">
+        <div>
+            <h2 class="text-dark fw-bold mb-1 tracking-tight">📊 Central Analytics Engine</h2>
+            <p class="text-muted small mb-0">Real-time status monitoring, inventory verification, and operational logs.</p>
+        </div>
+        <div class="bg-white px-3 py-2 rounded-3 shadow-sm border border-light">
+            <span class="text-danger fw-bold me-2">● Live</span>
+            @{
+                DateTime utcTime = DateTime.UtcNow;
+                TimeZoneInfo pktZone = TimeZoneInfo.FindSystemTimeZoneById("Pakistan Standard Time");
+                DateTime pakistanTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, pktZone);
+            }
+            <span class="text-secondary fw-semibold small">@pakistanTime.ToString("dd MMMM yyyy")</span>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100 position-relative overflow-hidden card-metric" style="background: linear-gradient(135deg, #ff5858 0%, #f857a6 100%);">
+                <div class="card-body p-4 text-white d-flex flex-column justify-content-between">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <span class="fs-6 text-uppercase fw-bold opacity-75 tracking-wider">Total Registered Donors</span>
+                        <span class="fs-3 opacity-50">👥</span>
+                    </div>
+                    <div>
+                        <h1 class="display-5 fw-bold mb-1">@Model.TotalDonors</h1>
+                        <p class="mb-0 small opacity-75"><span class="badge bg-white bg-opacity-25 text-white">Active Registry</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100 position-relative overflow-hidden card-metric" style="background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);">
+                <div class="card-body p-4 text-white d-flex flex-column justify-content-between">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <span class="fs-6 text-uppercase fw-bold opacity-75 tracking-wider">Network Facilities</span>
+                        <span class="fs-3 opacity-50">🏥</span>
+                    </div>
+                    <div>
+                        <h1 class="display-5 fw-bold mb-1">@Model.TotalBanks</h1>
+                        <p class="mb-0 small opacity-75"><span class="badge bg-white bg-opacity-25 text-white">Operational Hubs</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100 position-relative overflow-hidden card-metric" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+                <div class="card-body p-4 text-white d-flex flex-column justify-content-between">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <span class="fs-6 text-uppercase fw-bold opacity-75 tracking-wider">Available Inventory</span>
+                        <span class="fs-3 opacity-50">📦</span>
+                    </div>
+                    <div>
+                        <h1 class="display-5 fw-bold mb-1">@Model.TotalUnits</h1>
+                        <p class="mb-0 small opacity-75"><span class="badge bg-white bg-opacity-25 text-white">Total Reserve Bags</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100 position-relative overflow-hidden card-metric" style="background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);">
+                <div class="card-body p-4 text-dark d-flex flex-column justify-content-between">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <span class="fs-6 text-uppercase fw-bold opacity-75 tracking-wider">Hospital Requests</span>
+                        <span class="fs-3 opacity-50">📋</span>
+                    </div>
+                    <div>
+                        <h1 class="display-5 fw-bold mb-1">@Model.TotalRequests</h1>
+                        <p class="mb-0 small text-dark-50 fw-semibold"><span class="badge bg-dark bg-opacity-10 text-dark">Deduction Orders</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm bg-white p-4 rounded-3 mb-4">
+        <h5 class="fw-bold text-dark mb-3">🚀 Emergency Command & Quick Actions</h5>
+        <div class="row g-3">
+            <div class="col-6 col-sm-4 col-md-2">
+                <a asp-controller="Donors" asp-action="Create" class="btn btn-light border p-3 w-100 rounded-3 text-center d-block hover-shadow">
+                    <div class="fs-3 mb-1">➕</div>
+                    <span class="small fw-bold text-secondary">New Donor</span>
+                </a>
+            </div>
+            <div class="col-6 col-sm-4 col-md-2">
+                <a asp-controller="DonationRecords" asp-action="Create" class="btn btn-light border p-3 w-100 rounded-3 text-center d-block hover-shadow">
+                    <div class="fs-3 mb-1">💉</div>
+                    <span class="small fw-bold text-secondary">Log Donation</span>
+                </a>
+            </div>
+            <div class="col-6 col-sm-4 col-md-2">
+                <a asp-controller="BloodRequests" asp-action="Create" class="btn btn-light border p-3 w-100 rounded-3 text-center d-block hover-shadow">
+                    <div class="fs-3 mb-1">🏥</div>
+                    <span class="small fw-bold text-secondary">New Request</span>
+                </a>
+            </div>
+            <div class="col-6 col-sm-4 col-md-2">
+                <a asp-controller="BloodStocks" asp-action="Create" class="btn btn-light border p-3 w-100 rounded-3 text-center d-block hover-shadow">
+                    <div class="fs-3 mb-1">📦</div>
+                    <span class="small fw-bold text-secondary">Add Stock</span>
+                </a>
+            </div>
+            <div class="col-6 col-sm-4 col-md-2">
+                <a asp-controller="BloodBanks" asp-action="Create" class="btn btn-light border p-3 w-100 rounded-3 text-center d-block hover-shadow">
+                    <div class="fs-3 mb-1">🏢</div>
+                    <span class="small fw-bold text-secondary">Add Blood Bank</span>
+                </a>
+            </div>
+            <div class="col-6 col-sm-4 col-md-2">
+                <a asp-controller="BloodRequests" asp-action="Index" class="btn btn-danger text-white p-3 w-100 rounded-3 text-center d-block hover-shadow">
+                    <div class="fs-3 mb-1">🚨</div>
+                    <span class="small fw-bold">Review Queue</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-0 h-100 bg-white rounded-3">
+                <div class="card-header bg-white py-4 px-4 border-0 d-flex justify-content-between align-items-center border-bottom border-light">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="fs-5">💉</span>
+                        <h5 class="mb-0 text-dark fw-bold">Recent Donation Logs</h5>
+                    </div>
+                    <a asp-controller="DonationRecords" asp-action="Index" class="btn btn-sm btn-light border fw-semibold px-3 text-danger">View Ledger</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table align-middle table-hover mb-0">
+                            <thead class="table-light text-secondary small text-uppercase tracking-wider fw-bold">
+                                <tr>
+                                    <th class="ps-4 py-3">Donor</th>
+                                    <th class="text-center py-3">Group</th>
+                                    <th class="text-center py-3">Units Volume</th>
+                                    <th class="pe-4 py-3">Processed Date</th>
+                                </tr>
+                            </thead>
+                            <tbody class="border-top-0">
+                                @if (Model.RecentDonations != null && Model.RecentDonations.Any())
+                                {
+                                    foreach (var record in Model.RecentDonations)
+                                    {
+                                        <tr>
+                                            <td class="ps-4 fw-semibold text-dark">@(record.Donor?.Name ?? "System Record")</td>
+                                            <td class="text-center">
+                                                <span class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25 px-2.5 py-1.5 fw-bold fs-7">@record.BloodGroup</span>
+                                            </td>
+                                            <td class="text-center fw-bold text-success">+@record.UnitsDonated Bags</td>
+                                            <td class="pe-4 small text-muted">@record.DonationDate.ToString("MM/dd/yyyy")</td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4" class="text-center py-5 text-muted">No donations logged in the active cycle yet.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-0 h-100 bg-white rounded-3">
+                <div class="card-header bg-white py-4 px-4 border-0 d-flex justify-content-between align-items-center border-bottom border-light">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="fs-5">🏥</span>
+                        <h5 class="mb-0 text-dark fw-bold">Hospital Dispatch Queue</h5>
+                    </div>
+                    <a asp-controller="BloodRequests" asp-action="Index" class="btn btn-sm btn-light border fw-semibold px-3 text-primary">View Queue</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table align-middle table-hover mb-0">
+                            <thead class="table-light text-secondary small text-uppercase tracking-wider fw-bold">
+                                <tr>
+                                    <th class="ps-4 py-3">Hospital</th>
+                                    <th class="text-center py-3">Group</th>
+                                    <th class="text-center py-3">Needed</th>
+                                    <th class="text-center py-3">Urgency</th>
+                                    <th class="pe-4 text-end py-3">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="border-top-0">
+                                @if (Model.RecentRequests != null && Model.RecentRequests.Any())
+                                {
+                                    foreach (var request in Model.RecentRequests)
+                                    {
+                                        <tr>
+                                            <td class="ps-4 fw-semibold text-dark text-truncate" style="max-width: 140px;" title="@request.HospitalName">@request.HospitalName</td>
+                                            <td class="text-center">
+                                                <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-2.5 py-1.5 fw-bold fs-7">@request.BloodGroup</span>
+                                            </td>
+                                            <td class="text-center fw-bold text-dark">@request.UnitsNeeded</td>
+                                            <td class="text-center">
+                                                @if (request.Urgency == "High")
+                                                {
+                                                    <span class="badge bg-danger text-white px-2.5 py-1 fw-bold fs-7 uppercase tracking-wide">Emergency</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-secondary text-white px-2.5 py-1 fs-7">Normal</span>
+                                                }
+                                            </td>
+                                            <td class="pe-4 text-end">
+                                                @if (request.Status == "Approved")
+                                                {
+                                                    <span class="badge bg-success-subtle text-success border border-success border-opacity-25 px-2.5 py-1 fw-bold">✓ Approved</span>
+                                                }
+                                                else if (request.Status == "Rejected")
+                                                {
+                                                    <span class="badge bg-danger-subtle text-danger border border-danger border-opacity-25 px-2.5 py-1 fw-bold">✕ Rejected</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-warning-subtle text-warning border border-warning border-opacity-25 px-2.5 py-1 fw-bold">● Pending</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="5" class="text-center py-5 text-muted">No pending external dispatch operations detected.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

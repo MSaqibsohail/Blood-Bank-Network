@@ -1,0 +1,80 @@
+@model BloodBankNetwork.Models.BloodStock
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <h5 class="mb-0 fw-bold">📦 Add Initial Inventory Reserves</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="BankID" class="form-label fw-semibold text-secondary">Target Blood Bank</label>
+                            <select asp-for="BankID" class="form-select select2-bank" asp-items="ViewBag.BankID">
+                                <option value="">-- Select Storage Center --</option>
+                            </select>
+                            <span asp-validation-for="BankID" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="BloodGroup" class="form-label fw-semibold text-secondary">Blood Group Type</label>
+                            <select asp-for="BloodGroup" class="form-select">
+                                <option value="">-- Choose Type --</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                            </select>
+                            <span asp-validation-for="BloodGroup" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Units" class="form-label fw-semibold text-secondary">Starting Volume (Units)</label>
+                            <input asp-for="Units" type="number" class="form-control" min="0" placeholder="e.g., 15" />
+                            <span asp-validation-for="Units" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="LastUpdated" class="form-label fw-semibold text-secondary">Inventory Check Date</label>
+                            <input asp-for="LastUpdated" type="datetime-local" class="form-control" />
+                            <span asp-validation-for="LastUpdated" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary w-100 fw-bold">Save Stock</button>
+                            <a asp-action="Index" class="btn btn-outline-secondary w-50">Back to List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <!-- Select2 CSS & Theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.select2-bank').select2({
+                theme: 'bootstrap-5',
+                placeholder: '-- Select Storage Center --',
+                allowClear: true
+            });
+        });
+    </script>
+}

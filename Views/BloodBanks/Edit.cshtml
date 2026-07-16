@@ -1,0 +1,39 @@
+@model BloodBankNetwork.Models.BloodBank
+<a asp-action="Index"
+   class="btn btn-outline-secondary mb-3">
+    ← Back to List
+</a>
+<h2>Edit Blood Bank</h2>
+
+<form asp-action="Edit" method="post">
+<input type="hidden" asp-for="BankID" />
+    <div class="mb-3">
+        <label>Bank Name</label>
+        <input asp-for="BankName" class="form-control"/>
+    </div>
+
+    <div class="mb-3">
+        <label>Address</label>
+        <input asp-for="Address" class="form-control"/>
+    </div>
+
+    <div class="mb-3">
+        <label>City</label>
+        <input asp-for="City" class="form-control"/>
+    </div>
+
+    <div class="mb-3">
+        <label>Contact No</label>
+        <input asp-for="ContactNo" class="form-control"/>
+    </div>
+
+    <div class="mb-3">
+        <label>Operating Hours</label>
+        <input asp-for="OperatingHours" class="form-control"/>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Update
+    </button>
+
+</form>

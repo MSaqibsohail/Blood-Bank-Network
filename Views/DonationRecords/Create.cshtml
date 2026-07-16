@@ -1,0 +1,81 @@
+@model BloodBankNetwork.Models.DonationRecord
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-0">
+                <div class="card-header bg-dark text-white py-3">
+                    <h5 class="mb-0 fw-bold">🩸 Log New Blood Donation</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Create" method="post">
+                        
+                        @if (!ViewData.ModelState.IsValid && ViewData.ModelState.Values.Any(v => v.Errors.Any()))
+                        {
+                            <div asp-validation-summary="All" class="alert alert-danger small mb-3"></div>
+                        }
+
+                        <div class="mb-3">
+                            <label asp-for="DonorID" class="form-label fw-semibold text-secondary">Select Donor</label>
+                            <select asp-for="DonorID" class="form-select select2-donor" asp-items="ViewBag.DonorID">
+                                <option value="">-- Choose Registered Donor --</option>
+                            </select>
+                            <span asp-validation-for="DonorID" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="BankID" class="form-label fw-semibold text-secondary">Target Blood Bank</label>
+                            <select asp-for="BankID" class="form-select select2-bank" asp-items="ViewBag.BankID">
+                                <option value="">-- Select Receiving Center --</option>
+                            </select>
+                            <span asp-validation-for="BankID" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="UnitsDonated" class="form-label fw-semibold text-secondary">Units Donated (Bags)</label>
+                            <input asp-for="UnitsDonated" type="number" class="form-control" min="1" max="10" value="1" />
+                            <span asp-validation-for="UnitsDonated" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="DonationDate" class="form-label fw-semibold text-secondary">Donation Date</label>
+                            <input asp-for="DonationDate" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                            <span asp-validation-for="DonationDate" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-success w-100 fw-bold">Save Record</button>
+                            <a asp-action="Index" class="btn btn-outline-secondary w-50">Back</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <!-- Select2 CSS & Theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.select2-donor').select2({
+                theme: 'bootstrap-5',
+                placeholder: '-- Choose Registered Donor --',
+                allowClear: true
+            });
+            $('.select2-bank').select2({
+                theme: 'bootstrap-5',
+                placeholder: '-- Select Receiving Center --',
+                allowClear: true
+            });
+        });
+    </script>
+}

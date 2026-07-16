@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Blood Bank Network</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    
+    <!-- Outfit Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BloodBankNetwork.styles.css" asp-append-version="true" />
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-xl navbar-dark bg-danger border-bottom border-danger-subtle py-2">
+            <div class="container-fluid px-3">
+
+                <a class="navbar-brand fw-bold fs-5 d-flex align-items-center gap-1 me-3"
+                   asp-controller="Dashboard"
+                   asp-action="Index">
+                    <span>🩸</span> BloodBank<span class="fw-light opacity-75">Network</span>
+                </a>
+
+                <button class="navbar-toggler border-0"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarContent"
+                        aria-controls="navbarContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-xl-0 gap-1">
+
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center gap-1 text-white"
+                               asp-controller="Dashboard"
+                               asp-action="Index">
+                                📊 <span>Dashboard</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center gap-1 text-white"
+                               asp-controller="Donors"
+                               asp-action="Index">
+                                👥 <span>Donors</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center gap-1 text-white"
+                               asp-controller="BloodBanks"
+                               asp-action="Index">
+                                🏥 <span>Blood Banks</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center gap-1 text-white"
+                               asp-controller="BloodStocks"
+                               asp-action="Index">
+                                📦 <span>Blood Stock</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center gap-1 text-white"
+                               asp-controller="BloodRequests"
+                               asp-action="Index">
+                                📋 <span>Requests</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center gap-1 text-white"
+                               asp-controller="DonationRecords"
+                               asp-action="Index">
+                                🩸 <span>Donations</span>
+                            </a>
+                        </li>
+
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center gap-1 text-warning fw-bold"
+                                   asp-controller="Users"
+                                   asp-action="Index">
+                                    ⚙️ <span>Manage Employees</span>
+                                </a>
+                            </li>
+                        }
+
+                    </ul>
+
+                    <ul class="navbar-nav ms-auto align-items-center gap-2 mt-2 mt-xl-0">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item user-badge-zone">
+                                <span class="text-white opacity-90">
+                                    👋 Hello, <strong class="text-warning">@User.Identity.Name</strong> 
+                                    <span class="badge bg-dark text-white ms-1">@User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value</span>
+                                </span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-sm btn-outline-light px-3 py-1 fw-semibold" 
+                                   asp-controller="Account" 
+                                   asp-action="Logout">Sign Out</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-fluid px-2 px-sm-4 mt-4">
+        <main role="main" class="pb-5">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top text-center py-4 text-secondary shadow-sm mt-auto">
+        <div class="container-fluid">
+            <span class="fw-semibold text-dark">Blood Bank Network Management Portal</span> © 2026 — Secure Administrator Core System
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        // 🌟 FIX: BACK-BUTTON CACHE KILLER (BFCache Control)
+        // Agar user Sign Out karke back button dabaye, toh browser ko purani snapshot/photo dikhane se roko
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+                // Fauran page ko scratch se reload karo taake server status verify ho sake
+                window.location.reload();
+            }
+        });
+    </script>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <script>
+            // 🌟 SAFE AUTOMATIC LOGOUT ON TAB CLOSE
+            (function () {
+                var currentPath = window.location.pathname.toLowerCase();
+
+                // 🛑 LOOP KILLER: Authentication routes par redirection lock rahay gi
+                if (currentPath.includes('/account/login') || 
+                    currentPath.includes('/account/logout') || 
+                    currentPath.includes('/account/accessdenied')) {
+                    return; 
+                }
+
+                // Agar temporary sessionStorage khali hai, toh automatic clear cache/session karo
+                if (sessionStorage.getItem("UserTabActive") === null) {
+                    window.location.href = '@Url.Action("Logout", "Account")';
+                }
+            })();
+        </script>
+    }
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

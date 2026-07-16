@@ -1,0 +1,234 @@
+/* Premium Typography & Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --primary-color: #dc3545;
+  --primary-hover: #c82333;
+  --dark-crimson: #800000;
+  --bg-gradient: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  --glass-bg: rgba(255, 255, 255, 0.9);
+  --glass-border: rgba(220, 53, 69, 0.1);
+  --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 10px 30px rgba(128, 0, 0, 0.04);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.08);
+  --transition-speed: 0.25s;
+}
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+body {
+  font-family: 'Outfit', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--bg-gradient);
+  min-height: 100vh;
+  margin-bottom: 60px;
+  padding-top: 85px !important;
+  color: #2b2b2b;
+}
+
+/* Beautiful Fixed Translucent Navbar */
+.navbar {
+  position: fixed !important;
+  top: 0 !important;
+  width: 100% !important;
+  z-index: 1050 !important;
+  background: rgba(220, 53, 69, 0.96) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 25px rgba(128, 0, 0, 0.12);
+  padding: 0.75rem 1rem !important;
+}
+
+.navbar-brand {
+  font-size: 1.25rem !important;
+  letter-spacing: -0.02em;
+}
+
+.nav-link {
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.55rem 0.85rem !important;
+  border-radius: 8px;
+  transition: all var(--transition-speed) ease-in-out;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.18);
+  color: #ffffff !important;
+  transform: translateY(-1px);
+}
+
+/* Premium Card Styles */
+.card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 16px !important;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-speed) ease;
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: 0 12px 35px rgba(220, 53, 69, 0.08);
+}
+
+.card-header {
+  border-bottom: 1px solid var(--glass-border) !important;
+  border-radius: 16px 16px 0 0 !important;
+}
+
+/* Form Controls & Inputs Beautification */
+.form-control, .form-select {
+  border-radius: 10px;
+  border: 1.5px solid rgba(0,0,0,0.1);
+  padding: 0.65rem 1rem;
+  transition: all var(--transition-speed) ease;
+  font-size: 0.95rem;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.15) !important;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}
+
+/* Beautiful Premium Buttons */
+.btn {
+  border-radius: 10px;
+  padding: 0.6rem 1.25rem;
+  font-weight: 600;
+  transition: all var(--transition-speed) ease;
+  letter-spacing: 0.02em;
+}
+
+.btn-primary {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 18px rgba(220, 53, 69, 0.3) !important;
+}
+
+.btn-success {
+  background-color: #2e7d32 !important;
+  border-color: #2e7d32 !important;
+}
+
+.btn-success:hover {
+  background-color: #1b5e20 !important;
+  border-color: #1b5e20 !important;
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 18px rgba(46, 125, 50, 0.3) !important;
+}
+
+.btn-warning {
+  background-color: #f9a825 !important;
+  border-color: #f9a825 !important;
+  color: #ffffff !important;
+}
+
+.btn-warning:hover {
+  background-color: #f57f17 !important;
+  border-color: #f57f17 !important;
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 18px rgba(249, 168, 37, 0.3) !important;
+  color: #ffffff !important;
+}
+
+.btn-danger {
+  background-color: #c62828 !important;
+  border-color: #c62828 !important;
+}
+
+.btn-danger:hover {
+  background-color: #b71c1c !important;
+  border-color: #b71c1c !important;
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 18px rgba(198, 40, 40, 0.3) !important;
+}
+
+.btn-outline-secondary {
+  border-color: rgba(0,0,0,0.15);
+  color: #495057;
+}
+
+.btn-outline-secondary:hover {
+  background-color: rgba(0,0,0,0.05);
+  color: #212529;
+}
+
+/* Tables Styling */
+.table thead th {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: #495057;
+  border-bottom: 2px solid rgba(0,0,0,0.06);
+  padding: 1.1rem 0.75rem !important;
+}
+
+.table tbody td {
+  padding: 1.1rem 0.75rem !important;
+}
+
+/* Badges Styling */
+.badge {
+  padding: 0.5em 0.9em;
+  font-weight: 600;
+  border-radius: 8px;
+  letter-spacing: 0.02em;
+}
+
+/* Emergency Command Actions */
+.hover-shadow {
+  transition: all var(--transition-speed) ease-in-out;
+}
+.hover-shadow:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(220, 53, 69, 0.06) !important;
+  border-color: var(--primary-color) !important;
+}
+.card-metric {
+  transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+.card-metric:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Scrollbar Customization for Modern Look */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(220, 53, 69, 0.35);
+  border-radius: 4px;
+  transition: background var(--transition-speed) ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(220, 53, 69, 0.6);
+}

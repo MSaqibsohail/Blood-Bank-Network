@@ -1,0 +1,56 @@
+@model BloodBankNetwork.Models.BloodStock
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-0">
+                <div class="card-header bg-warning text-dark py-3">
+                    <h5 class="mb-0 fw-bold">✏️ Adjust Stock Levels</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Edit" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+                        
+                        <input type="hidden" asp-for="StockID" />
+                        <input type="hidden" asp-for="BankID" />
+                        <input type="hidden" asp-for="BloodGroup" />
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-muted">Storage Facility Center</label>
+                            <input class="form-control bg-light text-secondary" value="@(Model.BloodBank?.BankName ?? "Assigned Storage Hub")" readonly disabled />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-muted">Blood Group Category (Locked)</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-primary text-white fw-bold">@Model.BloodGroup</span>
+                                <input class="form-control bg-light" value="Biological type cannot be modified dynamically" readonly disabled />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Units" class="form-label fw-semibold text-secondary">Corrected Volume (Units)</label>
+                            <input asp-for="Units" type="number" class="form-control fw-bold text-dark" min="0" />
+                            <span asp-validation-for="Units" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="LastUpdated" class="form-label fw-semibold text-secondary">Adjustment Timestamp</label>
+                            <input asp-for="LastUpdated" type="datetime-local" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+                            <span asp-validation-for="LastUpdated" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-warning w-100 fw-bold">Update Level</button>
+                            <a asp-action="Index" class="btn btn-outline-secondary w-50">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

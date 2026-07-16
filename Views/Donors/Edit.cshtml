@@ -1,0 +1,60 @@
+@model BloodBankNetwork.Models.Donor
+
+<a asp-action="Index" class="btn btn-outline-secondary mb-3">
+    ← Back to List
+</a>
+<h2>Edit Donor</h2>
+
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+    
+    <input type="hidden" asp-for="DonorID" />
+
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Name</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="BloodGroup" class="form-label">Blood Group</label>
+        <select asp-for="BloodGroup" class="form-control">
+            <option value="">--- Select Blood Group ---</option>
+            <option>A+</option>
+            <option>A-</option>
+            <option>B+</option>
+            <option>B-</option>
+            <option>AB+</option>
+            <option>AB-</option>
+            <option>O+</option>
+            <option>O-</option>
+        </select>
+        <span asp-validation-for="BloodGroup" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Phone" class="form-label">Phone</label>
+        <input asp-for="Phone" class="form-control" />
+        <span asp-validation-for="Phone" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="City" class="form-label">City</label>
+        <input asp-for="City" class="form-control" />
+        <span asp-validation-for="City" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="TotalDonations" class="form-label">Total Donations</label>
+        <input asp-for="TotalDonations" class="form-control" type="number" min="0" />
+        <span asp-validation-for="TotalDonations" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Update Donor
+    </button>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,67 @@
+@model IEnumerable<BloodBankNetwork.Models.BloodBank>
+
+<div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mb-4">
+    <h2 class="fw-bold text-dark mb-0">🏥 Blood Bank Facilities</h2>
+    <div class="d-flex flex-wrap gap-2">
+        <a asp-action="Create" class="btn btn-success fw-semibold shadow-sm">+ Add Blood Bank</a>
+        <form method="get" class="d-flex gap-2">
+            <input type="text" 
+                   name="search" 
+                   class="form-control shadow-sm" 
+                   placeholder="Search bank name, city..." 
+                   style="max-width: 300px;" />
+            <button type="submit" class="btn btn-primary shadow-sm">Search</button>
+            <a asp-action="Index" class="btn btn-outline-secondary shadow-sm">Reset</a>
+        </form>
+    </div>
+</div>
+
+@{
+    int rowCount = 1;
+}
+
+<div class="card shadow border-0">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="p-3">Sr. No</th>
+                        <th class="p-3">Bank Name</th>
+                        <th class="p-3">Address</th>
+                        <th class="p-3">City</th>
+                        <th class="p-3">Contact No</th>
+                        <th class="p-3 text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach(var item in Model)
+                {
+                    <tr>
+                        <td class="p-3 fw-semibold text-dark">@(rowCount++)</td>
+                        <td class="p-3 fw-semibold">@item.BankName</td>
+                        <td class="p-3 text-secondary">@item.Address</td>
+                        <td class="p-3 text-secondary">@item.City</td>
+                        <td class="p-3 text-secondary">@item.ContactNo</td>
+                        <td class="p-3 text-end">
+                            <div class="d-inline-flex gap-2">
+                                <a asp-action="Edit"
+                                   asp-route-id="@item.BankID"
+                                   class="btn btn-warning btn-sm fw-semibold shadow-sm">
+                                     Edit
+                                </a>
+                                <a asp-action="Delete"
+                                   asp-route-id="@item.BankID"
+                                   class="btn btn-danger btn-sm fw-semibold shadow-sm"
+                                   onclick="return confirm('Delete this blood bank?')">
+                                     Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

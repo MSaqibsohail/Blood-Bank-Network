@@ -1,0 +1,62 @@
+@model BloodBankNetwork.Models.BloodBank
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-0">
+                <div class="card-header bg-dark text-white py-3">
+                    <h5 class="mb-0 fw-bold">🏢 Register New Blood Bank</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Create" method="post">
+                        @Html.AntiForgeryToken()
+
+                        @if (!ViewData.ModelState.IsValid && ViewData.ModelState.Values.Any(v => v.Errors.Any()))
+                        {
+                            <div asp-validation-summary="ModelOnly" class="alert alert-danger small mb-3"></div>
+                        }
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-secondary">Bank Name</label>
+                            <input asp-for="BankName" class="form-control" placeholder="e.g. Central Blood Bank" />
+                            <span asp-validation-for="BankName" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-secondary">Address</label>
+                            <input asp-for="Address" class="form-control" placeholder="e.g. 123 Medical Road" />
+                            <span asp-validation-for="Address" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-secondary">City</label>
+                            <input asp-for="City" class="form-control" placeholder="e.g. Karachi" />
+                            <span asp-validation-for="City" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-secondary">Contact No</label>
+                            <input asp-for="ContactNo" class="form-control" placeholder="e.g. 0213XXXXXXX" />
+                            <span asp-validation-for="ContactNo" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold text-secondary">Operating Hours</label>
+                            <input asp-for="OperatingHours" class="form-control" placeholder="e.g. 24/7 or 9 AM - 5 PM" />
+                            <span asp-validation-for="OperatingHours" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-success w-100 fw-bold">Save Bank</button>
+                            <a asp-action="Index" class="btn btn-outline-secondary w-50">Back</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

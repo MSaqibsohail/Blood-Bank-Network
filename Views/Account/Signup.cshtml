@@ -1,0 +1,88 @@
+@model BloodBankNetwork.Models.User
+@{ Layout = null; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Register Master Admin</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+</head>
+<body class="bg-light d-flex align-items-center justify-content-center" style="height: 100vh;">
+    <div class="card shadow border-0" style="width: 450px;">
+        <div class="card-header bg-dark text-white text-center py-3">
+            <h5 class="mb-0 fw-bold">🔐 Security Node Registration</h5>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Signup" method="post">
+                <div class="mb-3">
+                    <label asp-for="FullName" class="form-label text-secondary small fw-semibold"></label>
+                    <input asp-for="FullName" class="form-control" placeholder="e.g., Administrator" />
+                    <span asp-validation-for="FullName" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label text-secondary small fw-semibold"></label>
+                    <input asp-for="Email" class="form-control" placeholder="admin@network.com" />
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label text-secondary small fw-semibold"></label>
+                    <div class="input-group">
+                        <input asp-for="Password" class="form-control" type="password" id="password" placeholder="Minimum 6 characters" style="border-right: none !important;" />
+                        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                            <span id="eyeIcon"></span>
+                        </button>
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger small"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="Role" class="form-label text-secondary small fw-semibold">Account Level Type</label>
+                    <select asp-for="Role" class="form-select">
+                        <option value="Admin">System Administrator (Full Access)</option>
+                        <option value="Employee">Standard Employee (Restricted Access)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-dark w-100 fw-bold mb-2">Register System Authority</button>
+                <div class="text-center">
+                    <a asp-action="Login" class="text-decoration-none small text-muted">Back to Log In</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+            
+            const eyeSvg = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                </svg>
+            `;
+            const eyeSlashSvg = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a8.8 8.8 0 0 0-2.79.444l.74 1.157C6.56 4.048 7.26 4 8 4c4.686 0 8.22 4.025 8.22 4s-.815 1.705-2.414 3.018l.82 1.28c.34-.336.65-.694.93-1.077zm-1.88 1.153a8 8 0 0 1-1.96 1.057L9.067 12.2a4.5 4.5 0 0 0-1.468.082L5.835 14.7a10 10 0 0 1-2.264-1.57l.826-1.29A8 8 0 0 1 2.24 9.176L.622 11.53c-.324-.316-.62-.654-.888-1.011zm-4.32-2.316a3 3 0 0 0 2.22 2.22l-.76 1.19a4.5 4.5 0 0 1-3.34-3.34z"/>
+                  <path d="M12.44 14l-1.328-2.075a3.5 3.5 0 0 0-4.95-4.95L4.835 4.897a5.5 5.5 0 0 1 7.605 7.605L13.73 14h-.79zm-4.44-8.8a1 1 0 0 1 1 1c0 .064-.006.126-.017.186L7.18 4.22c.06-.01.122-.017.186-.017zm-4.22 6.82l-1.28 2a11 11 0 0 1-2.484-3.18 10 10 0 0 1-.017-1.61L2.24 9.186c.06-.01.12-.017.186-.017a1 1 0 0 1 1 1c0 .064-.006.126-.017.186z"/>
+                </svg>
+            `;
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.innerHTML = eyeSlashSvg;
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.innerHTML = eyeSvg;
+            }
+        });
+
+        // Initialize default icon
+        document.getElementById('eyeIcon').innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+              <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+            </svg>
+        `;
+    </script>
+</body>
+</html>
